@@ -1,0 +1,50 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b827394..44da69c 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -476,3 +476,8 @@ install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/data/udev"
+ 
+ 
+ add_subdirectory(test)
++
++# --- zed-mac: live VIO bridge (stdin frames/IMU -> stdout poses) ---
++add_executable(basalt_zed_live_vio ${CMAKE_CURRENT_SOURCE_DIR}/../../native/zed_live_vio.cpp)
++target_link_libraries(basalt_zed_live_vio basalt)
++basalt_add_macos_runtime_paths(basalt_zed_live_vio)
+diff --git a/vcpkg.json b/vcpkg.json
+index e36dd6b..e9bc27e 100644
+--- a/vcpkg.json
++++ b/vcpkg.json
+@@ -1,12 +1,7 @@
+ {
+   "name": "basalt",
+   "version-string": "0.1.7",
+-  "overrides": [
+-    {
+-      "name": "realsense2",
+-      "version": "2.51.1"
+-    }
+-  ],
++  "overrides": [],
+   "dependencies": [
+     "boost-date-time",
+     "boost-filesystem",
+@@ -38,16 +33,9 @@
+         "png"
+       ]
+     },
+-    {
+-      "name": "realsense2",
+-      "features": [
+-        "rs-usb-backend",
+-        "tm2"
+-      ]
+-    },
+     "tbb",
+     "basalt-headers",
+     "opengv",
+     "rosbag"
+   ]
+-}
++}
+\ No newline at end of file
